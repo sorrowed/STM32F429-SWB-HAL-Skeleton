@@ -1,10 +1,11 @@
 /**
   ******************************************************************************
-  * @file    stm32f4xx_hal_flash_ramfunc.h
+  * @file    exc7200.h
   * @author  MCD Application Team
-  * @version V1.3.2
-  * @date    26-June-2015
-  * @brief   Header file of FLASH RAMFUNC driver.
+  * @version V1.0.0
+  * @date    28-April-2015
+  * @brief   This file contains all the functions prototypes for the
+  *          exc7200.c IO expander driver.
   ******************************************************************************
   * @attention
   *
@@ -36,62 +37,101 @@
   */ 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __STM32F4xx_FLASH_RAMFUNC_H
-#define __STM32F4xx_FLASH_RAMFUNC_H
+#ifndef __EXC7200_H
+#define __EXC7200_H
 
 #ifdef __cplusplus
  extern "C" {
-#endif
-
-#if defined(STM32F411xE) || defined(STM32F446xx)
-
+#endif   
+   
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f4xx_hal_def.h"
+#include "../Common/ts.h"
 
-/** @addtogroup STM32F4xx_HAL_Driver
-  * @{
-  */
-
-/** @addtogroup FLASHRAMFUNC
+/** @addtogroup BSP
   * @{
   */ 
 
-/* Exported types ------------------------------------------------------------*/   
-/* Exported macro ------------------------------------------------------------*/
-/* Exported functions --------------------------------------------------------*/
-/** @addtogroup FLASHRAMFUNC_Exported_Functions
+/** @addtogroup Component
   * @{
   */
-
-/** @addtogroup FLASHRAMFUNC_Exported_Functions_Group1
+    
+/** @defgroup EXC7200
   * @{
-  */   
-__RAM_FUNC HAL_FLASHEx_StopFlashInterfaceClk(void);
-__RAM_FUNC HAL_FLASHEx_StartFlashInterfaceClk(void);
-__RAM_FUNC HAL_FLASHEx_EnableFlashSleepMode(void);
-__RAM_FUNC HAL_FLASHEx_DisableFlashSleepMode(void);
-/**
-  * @}
+  */    
+
+/* Exported types ------------------------------------------------------------*/
+
+/** @defgroup EXC7200_Exported_Types
+  * @{
   */ 
 
-/**
-  * @}
-  */
-#endif /* STM32F411xE */
-
-/**
-  * @}
-  */ 
-
-/**
-  * @}
-  */
+/* Exported constants --------------------------------------------------------*/
   
+/** @defgroup EXC7200_Exported_Constants
+  * @{
+  */ 
+
+/*  */   
+#define EXC7200_READ_CMD                             0x09  
+
+/**
+  * @}
+  */ 
+  
+/* Exported macro ------------------------------------------------------------*/
+   
+/** @defgroup exc7200_Exported_Macros
+  * @{
+  */ 
+
+/* Exported functions --------------------------------------------------------*/
+  
+/** @defgroup exc7200_Exported_Functions
+  * @{
+  */
+
+/** 
+  * @brief exc7200 Control functions
+  */
+void     exc7200_Init(uint16_t DeviceAddr);
+void     exc7200_Reset(uint16_t DeviceAddr);
+uint16_t exc7200_ReadID(uint16_t DeviceAddr);
+void     exc7200_TS_Start(uint16_t DeviceAddr);
+uint8_t  exc7200_TS_DetectTouch(uint16_t DeviceAddr);
+void     exc7200_TS_GetXY(uint16_t DeviceAddr, uint16_t *X, uint16_t *Y);
+void     exc7200_TS_EnableIT(uint16_t DeviceAddr);
+void     exc7200_TS_DisableIT(uint16_t DeviceAddr);
+uint8_t  exc7200_TS_ITStatus (uint16_t DeviceAddr);
+void     exc7200_TS_ClearIT (uint16_t DeviceAddr);
+
+void     IOE_Init(void);
+void     IOE_Delay(uint32_t delay);
+uint8_t  IOE_Read(uint8_t addr, uint8_t reg);
+uint16_t IOE_ReadMultiple(uint8_t addr, uint8_t reg, uint8_t *buffer, uint16_t length);
+void     IOE_WriteMultiple(uint8_t addr, uint8_t reg, uint8_t *buffer, uint16_t length);
+
+/* Touch screen driver structure */
+extern TS_DrvTypeDef exc7200_ts_drv;
+
 #ifdef __cplusplus
 }
 #endif
+#endif /* __EXC7200_H */
 
 
-#endif /* __STM32F4xx_FLASH_RAMFUNC_H */
+/**
+  * @}
+  */ 
 
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */ 
+
+/**
+  * @}
+  */       
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
