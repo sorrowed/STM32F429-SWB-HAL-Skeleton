@@ -31,3 +31,6 @@
 # Debug files
 *.dSYM/
 /Debug/
+
+# Release files
+/Release/
